@@ -1,0 +1,549 @@
+/* Import Font dari Google (Jika belum diimpor di tempat lain) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* --- Material Symbols (Pastikan ini ada di tag <head> HTML) --- */
+/* <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> */
+
+:root {
+    /* Palet Warna Baru */
+    --primary-dark: #1e3a8a; /* Indigo gelap untuk Sidebar/Aksen */
+    --accent: #3b82f6; /* Biru Cerah (digunakan untuk tombol/fokus) */
+    --muted: #4b5563; /* Teks agak gelap */
+    --bg: #cddeff; /* Latar belakang sangat terang */
+    --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Bayangan Kartu yang lebih tegas */
+    --border-radius-lg: 12px; /* Sudut membulat yang lebih besar */
+
+    /* Warna Status Konsisten */
+    --color-success: #10B981; /* Hijau (Stok banyak) */
+    --color-warning: #F59E0B; /* Kuning/Oranye (Stok terbatas) */
+    --color-danger: #EF4444; /* Merah (Stok habis) */
+    --color-border-subtle: #E5E7EB; /* Garis tipis */
+}
+
+/* Font dan Styling Dasar */
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--muted);
+}
+
+/* ************************************************** */
+/* TAMBAHAN UNTUK SMOOTH SCROLL */
+/* ************************************************** */
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- Layout Utama: Menambahkan Sidebar --- */
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Navigasi Kiri */
+.sidebar {
+    width: 250px;
+    padding: 24px 0;
+    background: var(--primary-dark);
+    color: white;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000; /* Pastikan sidebar di atas konten utama saat mobile */
+}
+
+.sidebar-header {
+    padding: 0 24px 20px 24px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar nav {
+    flex-grow: 1;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Jarak ikon dan teks */
+    padding: 12px 24px;
+    text-decoration: none;
+    color: #e5e7eb;
+    /* Transisi lebih mulus pada navigasi */
+    transition: background 0.25s ease-out, color 0.25s ease-out, border-left 0.25s ease-out, transform 0.15s ease-in-out;
+}
+
+.sidebar nav a:hover, .sidebar nav a.active {
+    background: #374151;
+    color: white;
+    border-left: 4px solid var(--accent);
+}
+
+/* Efek smooth saat klik pada link sidebar */
+.sidebar nav a:active {
+    transform: scale(0.98); /* Sedikit menyusut untuk feedback */
+    transition: transform 0.1s ease-in-out;
+}
+
+.sidebar-logout {
+    margin-top: auto; /* Dorong ke bawah */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-danger);
+    font-weight: 600;
+    transition: background 0.25s, color 0.25s, transform 0.15s ease-in-out;
+}
+
+.sidebar-logout:hover {
+    background: var(--color-danger);
+    color: white;
+}
+
+/* Efek smooth saat klik pada logout */
+.sidebar-logout:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease-in-out;
+}
+
+/* --- TAMBAHAN: Hamburger Button untuk Mobile --- */
+.hamburger-btn {
+    display: none; /* Sembunyikan di desktop */
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.hamburger-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Konten Utama */
+.main-content {
+    flex-grow: 1;
+    padding: 32px; /* Padding ditingkatkan */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* --- Content Header (Diperbarui) --- */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.content-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin: 0;
+}
+
+.header-tools {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+}
+
+/* --- KPI CARDS (Ringkasan Cepat) --- */
+.kpi-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.kpi-card {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transisi lebih smooth */
+    border-left: 5px solid transparent; /* Garis penekanan */
+    cursor: pointer; /* Menunjukkan kartu bisa diklik */
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Efek smooth saat klik pada kartu KPI */
+.kpi-card:active {
+    transform: translateY(-2px) scale(0.98); /* Sedikit naik dan menyusut */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.card-icon {
+    font-size: 36px;
+    font-variation-settings: 'FILL' 0, 'wght' 500;
+}
+
+.kpi-card .card-title {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.kpi-card .card-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 5px 0 0;
+    color: var(--primary-dark);
+}
+
+.card-detail {
+    font-size: 12px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* Varian Warna KPI Cards */
+.info-card { border-left-color: var(--accent); }
+.info-card .card-icon { color: var(--accent); }
+.success-card { border-left-color: var(--color-success); }
+.success-card .card-icon { color: var(--color-success); }
+.success-card .card-value { color: var(--color-success); }
+
+/* PERBAIKAN LOGIKA WARNING CARD (HARUSNYA KUNING/ORANYE) */
+.warning-card { 
+    border-left-color: var(--color-warning); 
+    background-color: #FEF9C3; /* Background kuning muda */
+}
+.warning-card .card-icon { 
+    color: var(--color-warning); 
+    font-variation-settings: 'FILL' 1, 'wght' 600; 
+}
+.warning-card .card-value, .warning-card .card-detail { 
+    color: var(--color-warning); 
+}
+/* -------------------------------------------------------------------------- */
+
+/* --- Dashboard Grid (Grafik dan Tabel) --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Grafik utama lebih besar */
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.chart-card {
+    background: white;
+    padding: 24px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--card-shadow);
+}
+
+.chart-card h3 {
+    font-size: 1.25rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid #eef2ff;
+    padding-bottom: 12px;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chart-placeholder {
+    height: 300px;
+    background-color: var(--bg);
+    border: 2px dashed var(--color-border-subtle);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--muted);
+    border-radius: 8px;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* --- Komponen Umum (Kartu, Tombol) --- */
+.card {
+    background: white;
+    padding: 24px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+}
+
+.card h3, .card h4 {
+    font-size: 1.25rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid #eef2ff;
+    padding-bottom: 8px;
+    margin-top: 0;
+    /* Tambahkan style untuk ikon di samping teks */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card h4 {
+    font-size: 1.1rem;
+    margin-top: 24px;
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+/* Tombol */
+.btn {
+    background: var(--accent);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    /* Transisi untuk efek smooth: background, shadow, dan transform */
+    transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+    text-transform: none;
+}
+
+.btn:hover:not(:disabled) {
+    background: #2563eb;
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Efek smooth saat klik pada tombol (dengan bounce ringan) */
+.btn:active {
+    transform: scale(0.98); /* Diperbaiki: scale konsisten dengan keyframe akhir */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    animation: btn-click 0.2s ease-in-out; /* Tambahan animasi bounce */
+}
+
+/* Keyframe untuk efek bounce saat klik tombol */
+@keyframes btn-click {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(0.98); } /* Kembali ke scale yang stabil */
+}
+
+/* Tombol Aksi di Tabel */
+.btn.small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    margin: 0 0.2rem;
+}
+
+/* Memastikan tombol small juga smooth dengan bounce */
+.btn.small:active {
+    transform: scale(0.96); /* Diperbaiki: scale lebih konsisten */
+    animation: btn-click 0.15s ease-in-out; /* Durasi lebih cepat untuk small */
+}
+
+/* Tombol Edit/Ghost */
+.btn.ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--color-border-subtle);
+    padding: 9px 15px;
+    font-weight: 400;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.btn.ghost:hover {
+    background: #f3f4f6;
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Efek smooth saat klik pada tombol ghost */
+.btn.ghost:active {
+    transform: scale(0.98); /* Diperbaiki: scale konsisten */
+    animation: btn-click 0.2s ease-in-out;
+}
+
+/* --- TABLE STYLES (Daftar Buku) --- */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table thead th {
+    background-color: var(--primary-dark);
+    color: #FFFFFF;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 3px solid var(--accent);
+}
+
+.table tbody tr {
+    /* Transisi untuk warna latar belakang hover tabel */
+    transition: background-color 0.3s ease;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #FAFAFB;
+}
+
+.table tbody tr:hover {
+    background-color: #EBF5FF;
+}
+
+.table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+    vertical-align: middle;
+}
+
+/* -------------------------------------------------- */
+/* Styling untuk Gambar Buku di Tabel (Thumbnail) */
+/* -------------------------------------------------- */
+.judul-cell {
+    /* Mengatur item di dalam sel secara horizontal */
+    display: flex; 
+    align-items: center;
+    gap: 10px; /* Jarak antara gambar dan teks */
+}
+
+.buku-thumbnail {
+    width: 35px; /* Lebar thumbnail kecil */
+    height: 50px; /* Tinggi thumbnail (proporsi vertikal) */
+    object-fit: cover; /* Memastikan gambar terpotong rapi tanpa merusak aspek rasio */
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Tambahan agar gambar tidak bisa diseret */
+    user-select: none;
+    pointer-events: none;
+}
+
+.judul-cell span {
+    font-weight: 600; /* Membuat judul sedikit lebih tebal */
+    color: var(--primary-dark);
+}
+/* -------------------------------------------------- */
+
+/* --- STOK INDICATORS (Integrasi dengan JS) --- */
+.stok-high { 
+    color: var(--color-success);
+    font-weight: 700;
+}
+.stok-limited { 
+    color: var(--color-warning);
+    font-weight: 700;
+}
+.stok-out { 
+    color: var(--color-danger);
+    font-weight: 700;
+}
+
+/* --- BUTTON VARIANTS (Integrasi dengan JS) --- */
+.btn-pesan {
+    /* Menggunakan accent sebagai warna utama Pesan */
+    background: var(--accent);
+    color: white;
+}
+.btn-pesan:hover:not(:disabled) {
+    background: #2563eb;
+}
+.btn-pesan:disabled {
+    background: #c3c7cc; /* Warna abu-abu saat disabled */
+    cursor: not-allowed;
+    opacity: 0.8;
+    box-shadow: none;
+    transform: none;
+    animation: none;
+}
+
+/* Tombol Hapus (Merah) */
+.btn-delete-data {
+    background-color: var(--color-danger);
+    color: white;
+    margin-left: 5px;
+}
+.btn-delete-data:hover {
+    background-color: #c93030;
+    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* --- FORM STYLES (Tambah Buku) --- */
+#addBookForm {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+#addBookForm input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 6px;
+    flex-grow: 1; /* Berbagi ruang yang tersisa */
+    flex-basis: 0; /* Mencegah input terlalu kecil */
+    min-width: 100px; /* Mencegah input terlalu kecil */
+    font-size: 1rem;
+    color: var(--muted);
+    transition: border-color 0.3s;
+}
+
+#addBookForm input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+#addBookForm button {
+    flex-grow: 0; /* Mencegah tombol membesar */
+    flex-shrink: 0; /* Mencegah tombol menyusut */
+    white-space: nowrap;
+}
+
+/* -------------------------------------------------- */
+/* 🆕 Tambahan Styling untuk Formulir Pemesanan/Checkout (#checkoutForm) */
+/* -------------------------------------------------- */
+
+/* Styling untuk label */
+#checkoutForm label {
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 5px; 
+    margin-top: 15px; /* Memberi jarak antar field */
+    display: block;
+}
+
+/* Styling untuk semua elemen input, textarea, dan select */
+#checkoutForm input[type="text"], 
+#checkoutForm input[type="email"], 
+#checkoutForm input[type="number"],
+#checkoutForm textarea, 
+#checkoutForm select,
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border-subtle);
+}
