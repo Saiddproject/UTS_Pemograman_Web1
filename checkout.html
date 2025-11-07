@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pemesanan / Checkout - Toko Buku</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span class="material-symbols-rounded">menu_book</span>
+                Toko Buku
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <span class="material-symbols-rounded">dashboard</span> Dashboard
+                </a>
+                <a href="stok.html" class="nav-item">
+                    <span class="material-symbols-rounded">inventory_2</span> Katalog
+                </a>
+                <a href="checkout.html" class="nav-item active">
+                    <span class="material-symbols-rounded">shopping_cart</span> Pemesanan
+                </a>
+                <a href="tracking.html" class="nav-item">
+                    <span class="material-symbols-rounded">local_shipping</span> Cek Pengiriman
+                </a>
+                <a href="laporan.html" class="nav-item">
+                    <span class="material-symbols-rounded">analytics</span> Laporan
+                </a>
+                <a href="history.html" class="nav-item">
+                    <span class="material-symbols-rounded">history</span> History
+                </a>
+            </nav>
+                <a href="login.html" class="nav-item sidebar-logout">
+                    <span class="material-symbols-rounded">logout</span> Logout
+                </a>
+            </nav>
+        </div>
+        
+        <div class="main-content">
+            <div class="container">
+                
+                <header class="content-header">
+                    <h1>🛍️ Keranjang & Pemesanan</h1>
+                    <div class="header-tools">
+                    </div>
+                </header>
+
+                <section class="card">
+                    <h3><span class="material-symbols-rounded" style="font-size: 20px;">receipt_long</span> Rincian Keranjang Belanja</h3>
+                    
+                    <table id="cartTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Judul Buku</th>
+                                <th>Harga Satuan</th>
+                                <th style="width: 100px;">Jumlah (Qty)</th>
+                                <th>Subtotal</th>
+                                <th style="width: 80px;">Hapus</th>
+                            </tr>
+                        </thead> 
+                                <tbody id="cartItems">
+                            </tbody>
+                        <tfoot>
+                            <tr id="cartSummary" style="font-weight: 700;">
+                                <td colspan="4" style="text-align: right; border-top: 3px solid var(--primary-dark);">TOTAL HARGA:</td>
+                                <td id="finalTotal" style="border-top: 3px solid var(--primary-dark); color: var(--primary-dark);">Rp 0</td>
+                                <td style="border-top: 3px solid var(--primary-dark);"></td> </tr>
+                        </tfoot>
+                    </table>
+                    
+                    <div style="margin-top: 20px; text-align: right;">
+                        <button id="clearCartBtn" class="btn ghost">Kosongkan Keranjang</button>
+                    </div>
+                </section>
+                
+                <section class="card">
+                    <h3><span class="material-symbols-rounded" style="font-size: 20px;">person</span> Informasi Pemesan & Pengiriman</h3>
+                    
+                    <form id="checkoutForm">
+                        
+                        <div class="form-grid">
+                            <div><label for="recipientName">Nama</label><input id="recipientName" required type="text"></div>
+                            <div><label for="recipientEmail">Email</label><input id="recipientEmail" type="email" required></div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <label for="recipientAddress">Alamat</label>
+                            <textarea id="recipientAddress" placeholder="Alamat Lengkap Pengiriman" required rows="3"></textarea>
+                        </div>
+                        
+                        <h4 style="margin-top: 25px;">Detail Pengiriman</h4>
+                        <div class="form-grid">
+                            <div>
+                                <label for="courier">Pilih Kurir</label>
+                                <select id="courier" required>
+                                    <option value="">Pilih Kurir</option>
+                                    <option value="JNE">JNE</option>
+                                    <option value="TIKI">TIKI</option>
+                                    <option value="POS">POS Indonesia</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="serviceType">Jenis Layanan</label>
+                                <select id="serviceType" required>
+                                    <option value="">Jenis Layanan</option>
+                                    <option value="Reguler">Reguler</option>
+                                    <option value="Express">Express</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: 25px;">Metode Pembayaran</h4>
+                        <div class="form-grid">
+                            <div>
+                                <label for="paymentMethod">Metode Pembayaran</label>
+                                <select id="paymentMethod" required>
+                                    <option value="">Metode Pembayaran</option>
+                                    <option value="Transfer Bank">Transfer Bank</option>
+                                    <option value="COD">Cash On Delivery (COD)</option>
+                                </select>
+                            </div>
+                            <div style="visibility: hidden;"></div> 
+                        </div>
+
+                        <div style="margin-top: 24px; text-align: right;">
+                            <button id="submitOrderBtn" class="btn" type="submit">Konfirmasi Pesanan</button>
+                        </div>
+                    </form>
+                </section>
+                
+            </div>
+        </div>
+    </div> 
+
+<script src="js/data.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>
